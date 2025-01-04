@@ -1,0 +1,99 @@
+<!DOCTYPE html> 
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Circular Progressing Bar</title>
+    <link rel="stylesheet" href="circ.css">
+</head>
+<body>
+    <div class="container">
+    <div class="circle-container">
+        <div class="skill" id="html-skill">
+            <div class="outer">
+                <div class="inner">
+                    <div id="html-number"></div>
+                </div>
+            </div>
+            <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="160px" height="160px">
+                <defs>
+                    <linearGradient id="GradientColor">
+                        <stop offset="0%" stop-color="#e91e63" />
+                        <stop offset="100%" stop-color="#673ab7" />
+                    </linearGradient>
+                </defs>
+                <circle cx="80" cy="80" r="70" stroke-linecap="round" id="html-progress-circle"/>
+            </svg>
+            <p>HTML</p>
+        </div>
+
+        <div class="skill" id="css-skill">
+            <div class="outer">
+                <div class="inner">
+                    <div id="css-number"></div>
+                </div>
+            </div>
+            <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="160px" height="160px">
+                <defs>
+                    <linearGradient id="GradientColor">
+                        <stop offset="0%" stop-color="#e91e63" />
+                        <stop offset="100%" stop-color="#673ab7" />
+                    </linearGradient>
+                </defs>
+                <circle cx="80" cy="80" r="70" stroke-linecap="round" id="css-progress-circle"/>
+            </svg>
+            <p>CSS</p>
+        </div>
+
+        <div class="skill" id="js-skill">
+            <div class="outer">
+                <div class="inner">
+                    <div id="js-number"></div>
+                </div>
+            </div>
+            <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="160px" height="160px">
+                <defs>
+                    <linearGradient id="GradientColor">
+                        <stop offset="0%" stop-color="#e91e63" />
+                        <stop offset="100%" stop-color="#673ab7" />
+                    </linearGradient>
+                </defs>
+                <circle cx="80" cy="80" r="70" stroke-linecap="round" id="js-progress-circle"/>
+            </svg>
+            <p>JavaScript</p>
+        </div>
+    </div>
+    
+    </div>
+
+    <script>
+        // Function to update each circle's progress
+        function updateCircle(circleId, numberId, percentage) {
+            let number = document.getElementById(numberId);
+            let progressCircle = document.getElementById(circleId);
+            let counter = 0;
+            const circumference = 2 * Math.PI * 70; // Circumference of the circle (2 * π * radius)
+            
+            // Set initial stroke dasharray and dashoffset
+            progressCircle.style.strokeDasharray = circumference;
+            progressCircle.style.strokeDashoffset = circumference;
+
+            setInterval(() => {
+                if (counter <= percentage) {
+                    let offset = circumference - (circumference * counter / 100);
+                    progressCircle.style.strokeDashoffset = offset; // Dynamically change stroke offset
+                    number.innerHTML = counter + "%";
+                    counter++;
+                } else {
+                    clearInterval();
+                }
+            }, 50); // Increment percentage every 50ms
+        }
+
+        // Initialize progress for each circle
+        updateCircle('html-progress-circle', 'html-number', 80);
+        updateCircle('css-progress-circle', 'css-number', 70);
+        updateCircle('js-progress-circle', 'js-number', 60);
+    </script>
+</body>
+</html>
